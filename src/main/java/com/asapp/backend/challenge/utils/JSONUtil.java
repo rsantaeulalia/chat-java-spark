@@ -1,5 +1,6 @@
 package com.asapp.backend.challenge.utils;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -12,7 +13,6 @@ public class JSONUtil {
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
             mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            mapper.disable(SerializationFeature.WRITE_NULL_MAP_VALUES);
             StringWriter sw = new StringWriter();
             mapper.writeValue(sw, data);
             return sw.toString();
@@ -21,13 +21,11 @@ public class JSONUtil {
         }
     }
 
-    public static <T> Object jsonToData(String json, T classToConvert) {
+    public static <T> T jsonToData(String json, Class<T> classToConvert) {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            mapper.disable(SerializationFeature.WRITE_NULL_MAP_VALUES);
-            return mapper.readValue(json, classToConvert.getClass());
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            return mapper.readValue(json, classToConvert);
         } catch (IOException e) {
             throw new RuntimeException("IOEXception while mapping object (" + json + ") to " + classToConvert.toString());
         }
