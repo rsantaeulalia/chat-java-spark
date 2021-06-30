@@ -1,5 +1,7 @@
 package com.asapp.backend.challenge;
 
+import static spark.Spark.before;
+
 import com.asapp.backend.challenge.controller.AuthController;
 import com.asapp.backend.challenge.controller.HealthController;
 import com.asapp.backend.challenge.controller.MessagesController;
@@ -7,6 +9,8 @@ import com.asapp.backend.challenge.controller.UsersController;
 import com.asapp.backend.challenge.filter.TokenValidatorFilter;
 import com.asapp.backend.challenge.repository.UserRepository;
 import com.asapp.backend.challenge.repository.UserSqlLiteRepository;
+import com.asapp.backend.challenge.service.TokenValidatorService;
+import com.asapp.backend.challenge.service.TokenValidatorServiceImpl;
 import com.asapp.backend.challenge.service.UserService;
 import com.asapp.backend.challenge.service.UserServiceImpl;
 import com.asapp.backend.challenge.utils.Path;
@@ -21,20 +25,24 @@ public class Application {
 
         //Services
         UserService userService = new UserServiceImpl(userRepository);
+        TokenValidatorService tokenValidatorService = new TokenValidatorServiceImpl("secret_jwt_key");
 
         //Controllers
-        UsersController usersController = new UsersController(userService);
+        UsersController usersController = new UsersController(userService, tokenValidatorService);
+        AuthController authController = new AuthController(userService, tokenValidatorService);
+
+        //Filters
+        TokenValidatorFilter tokenValidatorFilter = new TokenValidatorFilter(tokenValidatorService);
 
         // Spark Configuration
         Spark.port(8080);
 
-        // Configure Endpoints
         // Users
-        Spark.post(Path.USERS, UsersController.createUser);
+        Spark.post(Path.USERS, usersController.createUser);
         // Auth
-        Spark.post(Path.LOGIN, AuthController.login);
+        Spark.post(Path.LOGIN, authController.login);
         // Messages
-        Spark.before(Path.MESSAGES, TokenValidatorFilter.validateUser);
+        Spark.before(Path.MESSAGES, tokenValidatorFilter.validateUser);
         Spark.post(Path.MESSAGES, MessagesController.sendMessage);
         Spark.get(Path.MESSAGES, MessagesController.getMessages);
         // Health
