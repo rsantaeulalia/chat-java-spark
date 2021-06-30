@@ -5,17 +5,20 @@ import com.asapp.backend.challenge.repository.UserRepository;
 
 import java.util.Optional;
 
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final TokenValidatorService tokenValidatorService;
 
-    public UserServiceImpl(UserRepository userRepository){
+    public UserServiceImpl(UserRepository userRepository,
+                           TokenValidatorService tokenValidatorService) {
         this.userRepository = userRepository;
+        this.tokenValidatorService = tokenValidatorService;
     }
 
     @Override
-    public User registerUser(User user) {
-        return null;
+    public User registerUser(String username, String password) {
+        return userRepository.addUser(username, tokenValidatorService.hashPassword(password));
     }
 
     @Override

@@ -26,8 +26,8 @@ public class Application {
         UserRepository userRepository = new UserSqlLiteRepository();
 
         //Services
-        UserService userService = new UserServiceImpl(userRepository);
         TokenValidatorService tokenValidatorService = new TokenValidatorServiceImpl("secret_jwt_key");
+        UserService userService = new UserServiceImpl(userRepository, tokenValidatorService);
         AuthenticationService authenticationService = new AuthenticationServiceImpl(userService, tokenValidatorService);
 
         //Controllers

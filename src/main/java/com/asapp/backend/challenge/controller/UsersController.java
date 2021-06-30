@@ -19,7 +19,7 @@ public class UsersController {
 
     public Route createUser = (Request req, Response resp) -> {
         UserRequest userRequest = JSONUtil.jsonToData(req.body(), UserRequest.class);
-        User user = userService.registerUser(new User(0L, "test", "test"));
+        User user = userService.registerUser("test", "test");
         return JSONUtil.dataToJson(new UserResource(user.getId()));
     };
 }
