@@ -20,4 +20,16 @@ public class JSONUtil {
             throw new RuntimeException("IOEXception while mapping object (" + data + ") to JSON");
         }
     }
+
+    public static <T> Object jsonToData(String json, T classToConvert) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+            mapper.enable(SerializationFeature.INDENT_OUTPUT);
+            mapper.disable(SerializationFeature.WRITE_NULL_MAP_VALUES);
+            return mapper.readValue(json, classToConvert.getClass());
+        } catch (IOException e) {
+            throw new RuntimeException("IOEXception while mapping object (" + json + ") to " + classToConvert.toString());
+        }
+    }
 }
