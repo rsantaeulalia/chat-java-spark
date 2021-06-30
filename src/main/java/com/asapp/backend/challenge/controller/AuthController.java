@@ -1,21 +1,17 @@
 package com.asapp.backend.challenge.controller;
 
 import com.asapp.backend.challenge.resources.LoginResource;
-import com.asapp.backend.challenge.service.TokenValidatorService;
-import com.asapp.backend.challenge.service.UserService;
+import com.asapp.backend.challenge.service.AuthenticationService;
 import com.asapp.backend.challenge.utils.JSONUtil;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
 public class AuthController {
-    private final TokenValidatorService tokenValidatorService;
-    private UserService userService;
+    private AuthenticationService authenticationService;
 
-    public AuthController(final UserService userService,
-                          final TokenValidatorService tokenValidatorService) {
-        this.userService = userService;
-        this.tokenValidatorService = tokenValidatorService;
+    public AuthController(final AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
     }
 
     public Route login = (Request req, Response resp) -> {

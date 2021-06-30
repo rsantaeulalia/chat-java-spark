@@ -9,6 +9,8 @@ import com.asapp.backend.challenge.controller.UsersController;
 import com.asapp.backend.challenge.filter.TokenValidatorFilter;
 import com.asapp.backend.challenge.repository.UserRepository;
 import com.asapp.backend.challenge.repository.UserSqlLiteRepository;
+import com.asapp.backend.challenge.service.AuthenticationService;
+import com.asapp.backend.challenge.service.AuthenticationServiceImpl;
 import com.asapp.backend.challenge.service.TokenValidatorService;
 import com.asapp.backend.challenge.service.TokenValidatorServiceImpl;
 import com.asapp.backend.challenge.service.UserService;
@@ -26,10 +28,11 @@ public class Application {
         //Services
         UserService userService = new UserServiceImpl(userRepository);
         TokenValidatorService tokenValidatorService = new TokenValidatorServiceImpl("secret_jwt_key");
+        AuthenticationService authenticationService = new AuthenticationServiceImpl(userService, tokenValidatorService);
 
         //Controllers
-        UsersController usersController = new UsersController(userService, tokenValidatorService);
-        AuthController authController = new AuthController(userService, tokenValidatorService);
+        UsersController usersController = new UsersController(userService);
+        AuthController authController = new AuthController(authenticationService);
 
         //Filters
         TokenValidatorFilter tokenValidatorFilter = new TokenValidatorFilter(tokenValidatorService);

@@ -10,13 +10,10 @@ import spark.Route;
 
 public class UsersController {
 
-    private final TokenValidatorService tokenValidatorService;
     private UserService userService;
 
-    public UsersController(final UserService userService,
-                           final TokenValidatorService tokenValidatorService) {
+    public UsersController(final UserService userService) {
         this.userService = userService;
-        this.tokenValidatorService = tokenValidatorService;
     }
 
     public Route createUser = (Request req, Response resp) -> {
