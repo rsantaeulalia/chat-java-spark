@@ -5,6 +5,7 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class UserSqlLiteRepository implements UserRepository {
     private final Sql2o sql2o;
@@ -26,6 +27,19 @@ public class UserSqlLiteRepository implements UserRepository {
                     .getKey(Long.class);
             user.setId(id);
             return user;
+        }
+    }
+
+    @Override
+    public Optional<User> getByUsername(String username) {
+        try (Connection conn = sql2o.open()) {
+            User user = conn.createQuery("select * from users " +
+                    "where username = :username")
+                    .addParameter("username", username)
+                    .addColumnMapping("username", "username")
+                    .addColumnMapping("creation_date", "creationDate")
+                    .executeAndFetchFirst(User.class);
+            return Optional.ofNullable(user);
         }
     }
 
