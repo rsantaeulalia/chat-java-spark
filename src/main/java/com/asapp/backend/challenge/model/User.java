@@ -1,16 +1,22 @@
 package com.asapp.backend.challenge.model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class User {
     private Long id;
     private String username;
     private String password;
-    private LocalDate creationDate;
+    private Date creationDate;
 
-    public User(String username, String password, LocalDate creationDate) {
+    public User(String username, String password, Date creationDate) {
         this.username = username;
         this.password = password;
+        this.creationDate = creationDate;
+    }
+
+    public User(Long id, String username, Date creationDate) {
+        this.id = id;
+        this.username = username;
         this.creationDate = creationDate;
     }
 
@@ -34,11 +40,11 @@ public class User {
         return id;
     }
 
-    public LocalDate getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 

@@ -1,5 +1,6 @@
 package com.asapp.backend.challenge.service;
 
+import com.asapp.backend.challenge.controller.model.UserRequest;
 import com.asapp.backend.challenge.model.User;
 import com.asapp.backend.challenge.repository.UserRepository;
 
@@ -17,12 +18,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User registerUser(String username, String password) {
-        return userRepository.addUser(username, tokenValidatorService.hashPassword(password));
+    public User registerUser(UserRequest userRequest) {
+        return userRepository.addUser(userRequest.getUsername(), tokenValidatorService.hashPassword(userRequest.getPassword()));
     }
 
     @Override
     public Optional<User> getUserByUsername(String username) {
-        return null;
+        return userRepository.getByUsername(username);
     }
 }

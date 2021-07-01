@@ -1,6 +1,6 @@
 package com.asapp.backend.challenge.controller;
 
-import com.asapp.backend.challenge.resources.LoginResource;
+import com.asapp.backend.challenge.controller.model.UserRequest;
 import com.asapp.backend.challenge.service.AuthenticationService;
 import com.asapp.backend.challenge.utils.JSONUtil;
 import spark.Request;
@@ -8,6 +8,10 @@ import spark.Response;
 import spark.Route;
 
 public class AuthController {
+
+    private static final String TOKEN_PREFIX = "Bearer";
+    private static final String AUTHORIZATION_HEADER = "Authorization";
+
     private AuthenticationService authenticationService;
 
     public AuthController(final AuthenticationService authenticationService) {
@@ -15,8 +19,8 @@ public class AuthController {
     }
 
     public Route login = (Request req, Response resp) -> {
-        // TODO: Login and return a token
-        return JSONUtil.dataToJson(new LoginResource("", ""));
+        UserRequest userRequest = JSONUtil.jsonToData(req.body(), UserRequest.class);
+        return JSONUtil.dataToJson(authenticationService.login(userRequest));
     };
 
 }

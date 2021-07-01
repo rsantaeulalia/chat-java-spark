@@ -4,7 +4,7 @@ import com.asapp.backend.challenge.model.User;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.Optional;
 
 public class UserSqlLiteRepository implements UserRepository {
@@ -17,7 +17,7 @@ public class UserSqlLiteRepository implements UserRepository {
 
     public User addUser(String username, String password) {
         try (Connection conn = sql2o.open()) {
-            User user = new User(username, password, LocalDate.now());
+            User user = new User(username, password, new Date());
             Long id = conn.createQuery("insert into users( username, password, creation_date) " +
                     "VALUES (:username, :password, :creation_date)")
                     .addParameter("username", user.getUsername())
@@ -36,6 +36,7 @@ public class UserSqlLiteRepository implements UserRepository {
             User user = conn.createQuery("select * from users " +
                     "where username = :username")
                     .addParameter("username", username)
+                    .addColumnMapping("id", "id")
                     .addColumnMapping("username", "username")
                     .addColumnMapping("creation_date", "creationDate")
                     .executeAndFetchFirst(User.class);

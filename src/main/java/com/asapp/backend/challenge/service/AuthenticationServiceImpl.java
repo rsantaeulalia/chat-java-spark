@@ -1,5 +1,6 @@
 package com.asapp.backend.challenge.service;
 
+import com.asapp.backend.challenge.controller.model.UserRequest;
 import com.asapp.backend.challenge.model.User;
 import com.asapp.backend.challenge.resources.LoginResource;
 
@@ -7,8 +8,8 @@ import java.util.Optional;
 
 public class AuthenticationServiceImpl implements AuthenticationService {
 
-    private TokenValidatorService tokenValidatorService;
-    private UserService userService;
+    private final TokenValidatorService tokenValidatorService;
+    private final UserService userService;
 
     public AuthenticationServiceImpl(UserService userService, TokenValidatorService tokenValidatorService) {
         this.tokenValidatorService = tokenValidatorService;
@@ -16,11 +17,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public LoginResource login(String userName, String password) {
-        Optional<User> user = userService.getUserByUsername(userName);
-        if (user.isPresent() && tokenValidatorService.checkPassword(password, user.get().getPassword())) {
+    public LoginResource login(UserRequest userRequest) {
+        Optional<User> user = userService.getUserByUsername(userRequest.getUsername());
+        if (user.isPresent() && tokenValidatorService.checkPassword(userRequest.getPassword(), user.get().getPassword())) {
             String token = tokenValidatorService.generateToken(user.get());
-            return new LoginResource(user.get().getUsername(), token);
+            return new LoginResource(user.get().getId(), token);
         } else {
             return null;
         }
