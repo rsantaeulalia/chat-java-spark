@@ -53,8 +53,8 @@ public class Application {
         Spark.post(Path.LOGIN, authController.login);
         // Messages
         Spark.before(Path.MESSAGES, tokenValidatorFilter.validateUser);
-        Spark.post(Path.MESSAGES, MessagesController.sendMessage);
-        Spark.get(Path.MESSAGES, MessagesController.getMessages);
+        Spark.post(Path.MESSAGES, messagesController.sendMessage);
+        Spark.get(Path.MESSAGES, messagesController.getMessages);
         // Health
         Spark.post(Path.HEALTH, HealthController.check);
 

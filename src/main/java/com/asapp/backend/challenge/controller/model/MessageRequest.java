@@ -3,14 +3,14 @@ package com.asapp.backend.challenge.controller.model;
 public class MessageRequest {
     private Long recipient;
     private Long sender;
-    private ContentRequest contentRequest;
+    private ContentRequest content;
 
     MessageRequest(){}
 
-    public MessageRequest(Long recipient, Long sender, ContentRequest contentRequest) {
+    public MessageRequest(Long recipient, Long sender, ContentRequest content) {
         this.recipient = recipient;
         this.sender = sender;
-        this.contentRequest = contentRequest;
+        this.content = content;
     }
 
     public Long getRecipient() {
@@ -29,11 +29,11 @@ public class MessageRequest {
         this.sender = sender;
     }
 
-    public ContentRequest getContentRequest() {
-        return contentRequest;
+    public ContentRequest getContent() {
+        return content;
     }
 
-    public void setContentRequest(ContentRequest contentRequest) {
-        this.contentRequest = contentRequest;
+    public void setContent(ContentRequest content) {
+        this.content = content;
     }
 }

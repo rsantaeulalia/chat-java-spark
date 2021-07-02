@@ -1,4 +1,4 @@
 package com.asapp.backend.challenge.model;
 
-public class Content {
+public interface Content {
 }
