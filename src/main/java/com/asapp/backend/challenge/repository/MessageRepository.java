@@ -1,12 +1,12 @@
 package com.asapp.backend.challenge.repository;
 
-import com.asapp.backend.challenge.model.User;
+import com.asapp.backend.challenge.model.Message;
 import com.asapp.backend.challenge.resources.MessageResource;
 
-import java.util.Optional;
+import java.util.Collection;
 
 public interface MessageRepository {
-    User addMessage(MessageResource messageResource);
+    Message addMessage(MessageResource messageResource);
 
-    Optional<User> getMessages(Long receiverId, Long startId, Long limit);
+    Collection<Message> getMessages(Long receiverId, Long startId, Long limit);
 }

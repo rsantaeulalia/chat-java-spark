@@ -4,13 +4,12 @@ import java.util.Date;
 
 public class Message {
     private Long id;
-    private User senderId;
-    private User receiverId;
+    private Long senderId;
+    private Long receiverId;
     private Content content;
     private Date creationDate;
 
-    public Message(Long id, User senderId, User receiverId, Content content, Date creationDate) {
-        this.id = id;
+    public Message(Long senderId, Long receiverId, Content content, Date creationDate) {
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.content = content;
@@ -25,19 +24,19 @@ public class Message {
         this.id = id;
     }
 
-    public User getSenderId() {
+    public Long getSenderId() {
         return senderId;
     }
 
-    public void setSenderId(User senderId) {
+    public void setSenderId(Long senderId) {
         this.senderId = senderId;
     }
 
-    public User getReceiverId() {
+    public Long getReceiverId() {
         return receiverId;
     }
 
-    public void setReceiverId(User receiverId) {
+    public void setReceiverId(Long receiverId) {
         this.receiverId = receiverId;
     }
 

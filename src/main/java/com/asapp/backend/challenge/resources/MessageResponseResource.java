@@ -1,10 +1,13 @@
 package com.asapp.backend.challenge.resources;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class MessageResponseResource {
 
     private Long id;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ssZ")
     private Date timestamp;
 
     public MessageResponseResource(Long id, Date timestamp) {
