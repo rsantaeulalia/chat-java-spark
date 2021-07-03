@@ -19,7 +19,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Message saveMessage(MessageRequest messageRequest) {
-        return null;
+        return messageRepository.addMessage(messageRequest);
     }
 
     @Override

@@ -4,14 +4,14 @@ public class ContentRequest {
     private String type;
     private String text;
     private String url;
-    private Long width;
-    private Long height;
+    private int width;
+    private int height;
     private String source;
 
     ContentRequest() {
     }
 
-    public ContentRequest(String type, String text, String url, Long width, Long height, String source) {
+    public ContentRequest(String type, String text, String url, int width, int height, String source) {
         this.type = type;
         this.text = text;
         this.url = url;
@@ -44,19 +44,19 @@ public class ContentRequest {
         this.url = url;
     }
 
-    public Long getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public void setWidth(Long width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 
-    public Long getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(Long height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 

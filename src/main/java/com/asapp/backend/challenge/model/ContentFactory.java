@@ -9,9 +9,9 @@ public class ContentFactory implements AbstractFactory<Content> {
     public static final String IMAGE = "image";
 
     @Override
-    public Content create(String contentType, String url, int height, int width, String text, SourceEnum source) {
+    public Content create(String contentType, String url, int height, int width, String text, String source) {
         if (VIDEO.equalsIgnoreCase(contentType)) {
-            return new Video(contentType, url, source);
+            return new Video(contentType, url, SourceEnum.valueOf(source.toUpperCase()));
         } else if (TEXT.equalsIgnoreCase(contentType)) {
             return new Text(contentType, text);
         } else if (IMAGE.equalsIgnoreCase(contentType)) {
