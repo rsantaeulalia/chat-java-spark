@@ -12,12 +12,8 @@ import org.sql2o.Query;
 import org.sql2o.ResultSetHandler;
 import org.sql2o.Sql2o;
 
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 public class MessageSqlLiteRepository implements MessageRepository {
     private final Sql2o sql2o;
@@ -56,7 +52,7 @@ public class MessageSqlLiteRepository implements MessageRepository {
         try (Connection conn = sql2o.open()) {
             return conn
                     .createQuery("select * from messages " +
-                            "where receiver_id = :receiver_id and id > :start_id Limit :limit")
+                            "where receiver_id = :receiver_id and id >= :start_id Limit :limit")
                     .addParameter("receiver_id", receiverId)
                     .addParameter("start_id", startId)
                     .addParameter("limit", limit)
@@ -109,19 +105,14 @@ public class MessageSqlLiteRepository implements MessageRepository {
         return query;
     }
 
-    ResultSetHandler<Message> getMessagesHandler = rs -> {
-        if (!rs.next()) {
-            return null;
-        }
-        return new Message(rs.getLong("sender_id"),
-                rs.getLong("receiver_id"),
-                new ContentFactory().create(rs.getString("contentType"),
-                        rs.getString("url"),
-                        rs.getInt("height"),
-                        rs.getInt("width"),
-                        rs.getString("content"),
-                        rs.getString("source")),
-                rs.getDate("creation_date"));
-    };
+    ResultSetHandler<Message> getMessagesHandler = rs -> new Message(rs.getLong("sender_id"),
+            rs.getLong("receiver_id"),
+            new ContentFactory().create(rs.getString("contentType"),
+                    rs.getString("url"),
+                    rs.getInt("height"),
+                    rs.getInt("width"),
+                    rs.getString("content"),
+                    rs.getString("source")),
+            rs.getDate("creation_date"));
 
 }
