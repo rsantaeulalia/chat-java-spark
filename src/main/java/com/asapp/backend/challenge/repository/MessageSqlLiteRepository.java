@@ -7,14 +7,17 @@ import com.asapp.backend.challenge.model.Image;
 import com.asapp.backend.challenge.model.Message;
 import com.asapp.backend.challenge.model.Text;
 import com.asapp.backend.challenge.model.Video;
-import com.asapp.backend.challenge.model.enums.SourceEnum;
 import org.sql2o.Connection;
 import org.sql2o.Query;
+import org.sql2o.ResultSetHandler;
 import org.sql2o.Sql2o;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 public class MessageSqlLiteRepository implements MessageRepository {
     private final Sql2o sql2o;
@@ -48,32 +51,17 @@ public class MessageSqlLiteRepository implements MessageRepository {
         }
     }
 
-    private Query setContent(Query query, Content type) {
-        if (type instanceof Image) {
-            Image image = (Image) type;
-            query.addParameter("url", image.getUrl())
-                    .addParameter("width", image.getWidth())
-                    .addParameter("height", image.getHeight())
-                    .addParameter("contentType", image.getType());
-        } else if (type instanceof Video) {
-            Video video = (Video) type;
-            query.addParameter("url", video.getUrl())
-                    .addParameter("source", video.getSource())
-                    .addParameter("contentType", video.getType());
-        } else if (type instanceof Text) {
-            Text text = (Text) type;
-            query.addParameter("content", text.getText())
-                    .addParameter("contentType", text.getType());
-        } else {
-            throw new IllegalArgumentException(type + "not supported");
-        }
-
-        return query;
-    }
-
     @Override
     public Collection<Message> getMessages(Long receiverId, Long startId, Long limit) {
-        return Set.of();
+        try (Connection conn = sql2o.open()) {
+            return conn
+                    .createQuery("select * from messages " +
+                            "where receiver_id = :receiver_id and id > :start_id Limit :limit")
+                    .addParameter("receiver_id", receiverId)
+                    .addParameter("start_id", startId)
+                    .addParameter("limit", limit)
+                    .executeAndFetch(getMessagesHandler);
+        }
     }
 
     private void createTable() {
@@ -97,4 +85,43 @@ public class MessageSqlLiteRepository implements MessageRepository {
             System.out.println(e.getCause());
         }
     }
+
+    private Query setContent(Query query, Content type) {
+        if (type instanceof Image) {
+            Image image = (Image) type;
+            query.addParameter("url", image.getUrl())
+                    .addParameter("width", image.getWidth())
+                    .addParameter("height", image.getHeight())
+                    .addParameter("contentType", image.getType());
+        } else if (type instanceof Video) {
+            Video video = (Video) type;
+            query.addParameter("url", video.getUrl())
+                    .addParameter("source", video.getSource())
+                    .addParameter("contentType", video.getType());
+        } else if (type instanceof Text) {
+            Text text = (Text) type;
+            query.addParameter("content", text.getText())
+                    .addParameter("contentType", text.getType());
+        } else {
+            throw new IllegalArgumentException(type + "not supported");
+        }
+
+        return query;
+    }
+
+    ResultSetHandler<Message> getMessagesHandler = rs -> {
+        if (!rs.next()) {
+            return null;
+        }
+        return new Message(rs.getLong("sender_id"),
+                rs.getLong("receiver_id"),
+                new ContentFactory().create(rs.getString("contentType"),
+                        rs.getString("url"),
+                        rs.getInt("height"),
+                        rs.getInt("width"),
+                        rs.getString("content"),
+                        rs.getString("source")),
+                rs.getDate("creation_date"));
+    };
+
 }

@@ -34,7 +34,7 @@ public class Application {
         TokenValidatorService tokenValidatorService = new TokenValidatorServiceImpl("secret_jwt_key");
         UserService userService = new UserServiceImpl(userRepository, tokenValidatorService);
         AuthenticationService authenticationService = new AuthenticationServiceImpl(userService, tokenValidatorService);
-        MessageService messageService = new MessageServiceImpl(messageRepository, tokenValidatorService);
+        MessageService messageService = new MessageServiceImpl(messageRepository);
 
         //Controllers
         UsersController usersController = new UsersController(userService);

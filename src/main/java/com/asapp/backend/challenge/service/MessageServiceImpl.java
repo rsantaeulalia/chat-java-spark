@@ -9,12 +9,9 @@ import java.util.Collection;
 public class MessageServiceImpl implements MessageService {
 
     private final MessageRepository messageRepository;
-    private final TokenValidatorService tokenValidatorService;
 
-    public MessageServiceImpl(MessageRepository messageRepository,
-                              TokenValidatorService tokenValidatorService) {
+    public MessageServiceImpl(MessageRepository messageRepository) {
         this.messageRepository = messageRepository;
-        this.tokenValidatorService = tokenValidatorService;
     }
 
     @Override
@@ -24,6 +21,6 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Collection<Message> getMessagesByReceiverId(Long receiverId, Long startId, Long limit) {
-        return null;
+        return messageRepository.getMessages(receiverId, startId, limit);
     }
 }
