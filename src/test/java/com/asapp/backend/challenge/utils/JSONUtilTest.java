@@ -1,33 +1,49 @@
 package com.asapp.backend.challenge.utils;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-
-import java.io.IOException;
-import java.io.StringWriter;
+import com.asapp.backend.challenge.controller.model.ContentRequest;
+import com.asapp.backend.challenge.controller.model.MessageRequest;
+import com.asapp.backend.challenge.controller.model.UserRequest;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class JSONUtilTest {
-    public static String dataToJson(Object data) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            StringWriter sw = new StringWriter();
-            mapper.writeValue(sw, data);
-            return sw.toString();
-        } catch (IOException e) {
-            throw new RuntimeException("IOEXception while mapping object (" + data + ") to JSON");
-        }
+
+    private final String userJson = "{\n" +
+            "\"username\": \"TestingUser56\",\n" +
+            "\"password\": \"Pa$$word\"\n" +
+            "}";
+
+    private final UserRequest userRequest = new UserRequest("TestingUser56", "Pa$$word");
+
+    private final String messageJson = "{\n" +
+            "\"recipient\": 1,\n" +
+            "\"sender\": 2,\n" +
+            " \"content\": {\n" +
+            "    \"type\": \"text\",\n" +
+            "    \"text\": \"this is a test text\"\n" +
+            " }\n" +
+            "}";
+
+    private final MessageRequest messageRequest = new MessageRequest(1L, 2L, new ContentRequest("text", "this is a test text", null, 0, 0, null));
+
+    @Test
+    public void givenJsonWhenJSONUtilIsCalledReturnClass() {
+        Assert.assertTrue(userJson.replaceAll("\\s+", "").equalsIgnoreCase(JSONUtil.dataToJson(userRequest).replaceAll("\\s+", "")));
     }
 
-    public static <T> T jsonToData(String json, Class<T> classToConvert) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            return mapper.readValue(json, classToConvert);
-        } catch (IOException e) {
-            throw new RuntimeException("IOEXception while mapping object (" + json + ") to " + classToConvert.toString());
-        }
+    @Test
+    public void givenClassWhenJSONUtilIsCalledReturnJson() {
+        UserRequest returnedUser = JSONUtil.jsonToData(userJson, UserRequest.class);
+        Assert.assertEquals(userRequest.getUsername(), returnedUser.getUsername());
+        Assert.assertEquals(userRequest.getPassword(), returnedUser.getPassword());
+    }
+
+    @Test
+    public void givenMessageClassWhenJSONUtilIsCalledReturnJson() {
+        MessageRequest returnedMessage = JSONUtil.jsonToData(messageJson, MessageRequest.class);
+        Assert.assertEquals(messageRequest.getRecipient(), returnedMessage.getRecipient());
+        Assert.assertEquals(messageRequest.getSender(), returnedMessage.getSender());
+        Assert.assertEquals(messageRequest.getContent().getText(), returnedMessage.getContent().getText());
+        Assert.assertEquals(messageRequest.getContent().getType(), returnedMessage.getContent().getType());
     }
 }

@@ -22,6 +22,7 @@ import com.asapp.backend.challenge.service.TokenValidatorService;
 import com.asapp.backend.challenge.service.implementation.TokenValidatorServiceImpl;
 import com.asapp.backend.challenge.service.UserService;
 import com.asapp.backend.challenge.service.implementation.UserServiceImpl;
+import com.asapp.backend.challenge.utils.PasswordUtil;
 import com.asapp.backend.challenge.utils.Path;
 import org.sql2o.Sql2o;
 import spark.Spark;

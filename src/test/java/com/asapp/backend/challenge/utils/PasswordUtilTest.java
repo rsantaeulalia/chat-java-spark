@@ -1,15 +1,15 @@
 package com.asapp.backend.challenge.utils;
 
-import org.mindrot.jbcrypt.BCrypt;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class PasswordUtilTest {
-    public static final String BCRYPT_SALT = BCrypt.gensalt(10);
 
-    public static String hashPassword(String password) {
-        return BCrypt.hashpw(password, BCRYPT_SALT);
-    }
+    private String password = "Pa$$word";
+    private String hashedPassword = "$2a$10$7ucFCkXSDNU5Sx93ySjSFe1PK8Ejr4ZiW8sRVfvEHWGnnul.HO8Jy";
 
-    public static boolean checkPassword(String password, String hashedPassword) {
-        return BCrypt.checkpw(password, hashedPassword);
+    @Test
+    public void givenHashedPasswordCheckIsCorrect() {
+        Assert.assertTrue(PasswordUtil.checkPassword(password, hashedPassword));
     }
 }
