@@ -9,4 +9,6 @@ public interface UserService {
     User registerUser(User user);
 
     Optional<User> getUserByUsername(String username);
+
+    Optional<User> getUserById(Long id);
 }

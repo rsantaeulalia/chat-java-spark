@@ -8,4 +8,6 @@ public interface UserRepository {
     User addUser(User user);
 
     Optional<User> getByUsername(String username);
+
+    Optional<User> getById(Long id);
 }

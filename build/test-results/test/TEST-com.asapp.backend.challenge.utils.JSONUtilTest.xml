@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.asapp.backend.challenge.utils.JSONUtilTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-07-05T22:42:43" hostname="rsantaeulalia-mbp" time="0.437">
+<testsuite name="com.asapp.backend.challenge.utils.JSONUtilTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-07-05T23:11:18" hostname="rsantaeulalia-mbp" time="0.42">
   <properties/>
-  <testcase name="givenJsonWhenJSONUtilIsCalledReturnClass" classname="com.asapp.backend.challenge.utils.JSONUtilTest" time="0.377"/>
-  <testcase name="givenMessageClassWhenJSONUtilIsCalledReturnJson" classname="com.asapp.backend.challenge.utils.JSONUtilTest" time="0.059"/>
-  <testcase name="givenClassWhenJSONUtilIsCalledReturnJson" classname="com.asapp.backend.challenge.utils.JSONUtilTest" time="0.001"/>
+  <testcase name="givenJsonWhenJSONUtilIsCalledReturnClass" classname="com.asapp.backend.challenge.utils.JSONUtilTest" time="0.364"/>
+  <testcase name="givenMessageClassWhenJSONUtilIsCalledReturnJson" classname="com.asapp.backend.challenge.utils.JSONUtilTest" time="0.054"/>
+  <testcase name="givenClassWhenJSONUtilIsCalledReturnJson" classname="com.asapp.backend.challenge.utils.JSONUtilTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

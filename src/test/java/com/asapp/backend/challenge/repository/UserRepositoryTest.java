@@ -20,6 +20,7 @@ public class UserRepositoryTest {
     private User savedUser;
     private Optional<User> userFindByUsername;
     private String username;
+    private Long idToFind;
     private UserRepository userRepository;
 
     @Before
@@ -28,6 +29,7 @@ public class UserRepositoryTest {
         userRepository = new UserSqlLiteRepository(sql2o);
         userToSave = null;
         savedUser = null;
+        idToFind = 0L;
     }
 
     @Test
@@ -74,6 +76,29 @@ public class UserRepositoryTest {
     private void thenTheUserIsFound() {
         Assert.assertTrue(userFindByUsername.isPresent());
         Assert.assertEquals(userFindByUsername.get().getUsername(), username);
+    }
+
+    @Test
+    public void testGetUserById() {
+        givenIdToFind();
+        whenTheRepositoryFindById();
+        thenTheUserIsFoundById();
+    }
+
+    private void givenIdToFind() {
+        userRepository.addUser(new User("testingUsername2", "passwordTest2", new Date()));
+        userRepository.addUser(new User("testingUsername3", "passwordTest3", new Date()));
+        userRepository.addUser(new User("usernameToFind", "passwordTest4", new Date()));
+        idToFind = 1L;
+    }
+
+    private void whenTheRepositoryFindById() {
+        userFindByUsername = userRepository.getById(idToFind);
+    }
+
+    private void thenTheUserIsFoundById() {
+        Assert.assertTrue(userFindByUsername.isPresent());
+        Assert.assertEquals(userFindByUsername.get().getUsername(), "testingUsername2");
     }
 
     @Test

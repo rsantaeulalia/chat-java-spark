@@ -79,7 +79,7 @@ public class MessageSqlLiteRepository implements MessageRepository {
         }
     }
 
-    private Query setContent(Query query, Content type) {
+    private void setContent(Query query, Content type) {
         if (type instanceof Image) {
             Image image = (Image) type;
             query.addParameter("url", image.getUrl())
@@ -99,7 +99,6 @@ public class MessageSqlLiteRepository implements MessageRepository {
                     .addParameter("contentType", text.getType());
         }
 
-        return query;
     }
 
     ResultSetHandler<Message> getMessagesHandler = rs -> new Message(rs.getLong("id"),

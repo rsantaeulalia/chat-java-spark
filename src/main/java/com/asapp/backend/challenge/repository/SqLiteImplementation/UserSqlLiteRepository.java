@@ -15,6 +15,7 @@ public class UserSqlLiteRepository implements UserRepository {
         createTable();
     }
 
+    @Override
     public User addUser(User user) {
         try (Connection conn = sql2o.open()) {
             Long id = conn.createQuery("insert into users( username, password, creation_date) " +
@@ -35,6 +36,20 @@ public class UserSqlLiteRepository implements UserRepository {
             User user = conn.createQuery("select * from users " +
                     "where username = :username")
                     .addParameter("username", username)
+                    .addColumnMapping("id", "id")
+                    .addColumnMapping("username", "username")
+                    .addColumnMapping("creation_date", "creationDate")
+                    .executeAndFetchFirst(User.class);
+            return Optional.ofNullable(user);
+        }
+    }
+
+    @Override
+    public Optional<User> getById(Long id) {
+        try (Connection conn = sql2o.open()) {
+            User user = conn.createQuery("select * from users " +
+                    "where id = :id")
+                    .addParameter("id", id)
                     .addColumnMapping("id", "id")
                     .addColumnMapping("username", "username")
                     .addColumnMapping("creation_date", "creationDate")
