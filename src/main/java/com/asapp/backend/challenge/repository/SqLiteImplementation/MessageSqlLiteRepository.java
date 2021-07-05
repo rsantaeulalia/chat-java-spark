@@ -17,8 +17,8 @@ import java.util.Collection;
 public class MessageSqlLiteRepository implements MessageRepository {
     private final Sql2o sql2o;
 
-    public MessageSqlLiteRepository() {
-        sql2o = new Sql2o("jdbc:sqlite:sample.db", null, null);
+    public MessageSqlLiteRepository(Sql2o datasource) {
+        sql2o = datasource;
         createTable();
     }
 

@@ -23,6 +23,7 @@ import com.asapp.backend.challenge.service.implementation.TokenValidatorServiceI
 import com.asapp.backend.challenge.service.UserService;
 import com.asapp.backend.challenge.service.implementation.UserServiceImpl;
 import com.asapp.backend.challenge.utils.Path;
+import org.sql2o.Sql2o;
 import spark.Spark;
 
 public class Application {
@@ -30,8 +31,8 @@ public class Application {
     public static void main(String[] args) {
 
         //Repositories
-        UserRepository userRepository = new UserSqlLiteRepository();
-        MessageRepository messageRepository = new MessageSqlLiteRepository();
+        UserRepository userRepository = new UserSqlLiteRepository(new Sql2o("jdbc:sqlite:sample.db", null, null));
+        MessageRepository messageRepository = new MessageSqlLiteRepository(new Sql2o("jdbc:sqlite:sample.db", null, null));
 
         //Services
         TokenValidatorService tokenValidatorService = new TokenValidatorServiceImpl("secret_jwt_key");

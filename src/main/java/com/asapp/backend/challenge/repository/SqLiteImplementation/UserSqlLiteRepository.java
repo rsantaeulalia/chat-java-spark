@@ -10,8 +10,8 @@ import java.util.Optional;
 public class UserSqlLiteRepository implements UserRepository {
     private final Sql2o sql2o;
 
-    public UserSqlLiteRepository() {
-        sql2o = new Sql2o("jdbc:sqlite:sample.db", null, null);
+    public UserSqlLiteRepository(Sql2o datasource) {
+        sql2o = datasource;
         createTable();
     }
 
