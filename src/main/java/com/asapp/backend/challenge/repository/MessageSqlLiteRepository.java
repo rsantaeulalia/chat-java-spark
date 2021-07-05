@@ -1,6 +1,7 @@
 package com.asapp.backend.challenge.repository;
 
 import com.asapp.backend.challenge.controller.model.MessageRequest;
+import com.asapp.backend.challenge.exceptions.ContentTypeNotSupportedException;
 import com.asapp.backend.challenge.model.Content;
 import com.asapp.backend.challenge.model.ContentFactory;
 import com.asapp.backend.challenge.model.Image;
@@ -57,6 +58,8 @@ public class MessageSqlLiteRepository implements MessageRepository {
                     .addParameter("start_id", startId)
                     .addParameter("limit", limit)
                     .executeAndFetch(getMessagesHandler);
+        } catch (Exception e) {
+            throw e;
         }
     }
 
@@ -78,7 +81,7 @@ public class MessageSqlLiteRepository implements MessageRepository {
                     ")"
             ).executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getCause());
+            throw e;
         }
     }
 
@@ -99,7 +102,7 @@ public class MessageSqlLiteRepository implements MessageRepository {
             query.addParameter("content", text.getText())
                     .addParameter("contentType", text.getType());
         } else {
-            throw new IllegalArgumentException(type + "not supported");
+            throw new ContentTypeNotSupportedException(type + "not supported");
         }
 
         return query;

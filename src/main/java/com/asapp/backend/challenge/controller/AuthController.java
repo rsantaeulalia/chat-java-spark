@@ -8,10 +8,6 @@ import spark.Response;
 import spark.Route;
 
 public class AuthController {
-
-    private static final String TOKEN_PREFIX = "Bearer";
-    private static final String AUTHORIZATION_HEADER = "Authorization";
-
     private AuthenticationService authenticationService;
 
     public AuthController(final AuthenticationService authenticationService) {

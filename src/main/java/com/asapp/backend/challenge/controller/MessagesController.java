@@ -1,19 +1,17 @@
 package com.asapp.backend.challenge.controller;
 
 import com.asapp.backend.challenge.controller.model.MessageRequest;
+import com.asapp.backend.challenge.exceptions.MissingParametersException;
 import com.asapp.backend.challenge.model.Message;
-import com.asapp.backend.challenge.resources.MessageResource;
 import com.asapp.backend.challenge.resources.MessageResponseResource;
 import com.asapp.backend.challenge.service.MessageService;
 import com.asapp.backend.challenge.utils.JSONUtil;
-import com.google.common.collect.ImmutableList;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 public class MessagesController {
 
@@ -35,15 +33,21 @@ public class MessagesController {
     };
 
     public Route getMessages = (Request req, Response rep) -> {
-        Long limit = req.queryParams().contains(LIMIT_PROPERTY) ?
-                Long.parseLong(req.queryParams(LIMIT_PROPERTY)) :
-                DEFAULT_LIMIT;
-        Long receiverId = Long.parseLong(req.queryParams(RECIPIENT_PROPERTY));
-        Long startId = Long.parseLong(req.queryParams(START_PROPERTY));
+        Long limit, receiverId, startId;
+        try {
+            limit = req.queryParams().contains(LIMIT_PROPERTY) ?
+                    Long.parseLong(req.queryParams(LIMIT_PROPERTY)) :
+                    DEFAULT_LIMIT;
+            receiverId = Long.parseLong(req.queryParams(RECIPIENT_PROPERTY));
+            startId = Long.parseLong(req.queryParams(START_PROPERTY));
+        } catch (Exception e) {
+            throw new MissingParametersException("Required parameters must be present");
+        }
 
         Collection<Message> messages = messageService.getMessagesByReceiverId(receiverId, startId, limit);
 
         return JSONUtil.dataToJson(Collections.singletonList(messages));
     };
+
 
 }

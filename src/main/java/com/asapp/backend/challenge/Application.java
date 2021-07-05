@@ -1,11 +1,14 @@
 package com.asapp.backend.challenge;
 
-import static spark.Spark.before;
+import static spark.Spark.exception;
 
 import com.asapp.backend.challenge.controller.AuthController;
 import com.asapp.backend.challenge.controller.HealthController;
 import com.asapp.backend.challenge.controller.MessagesController;
 import com.asapp.backend.challenge.controller.UsersController;
+import com.asapp.backend.challenge.exceptions.ContentTypeNotSupportedException;
+import com.asapp.backend.challenge.exceptions.MissingParametersException;
+import com.asapp.backend.challenge.exceptions.UserNotFoundException;
 import com.asapp.backend.challenge.filter.TokenValidatorFilter;
 import com.asapp.backend.challenge.repository.MessageRepository;
 import com.asapp.backend.challenge.repository.MessageSqlLiteRepository;
@@ -32,7 +35,7 @@ public class Application {
 
         //Services
         TokenValidatorService tokenValidatorService = new TokenValidatorServiceImpl("secret_jwt_key");
-        UserService userService = new UserServiceImpl(userRepository, tokenValidatorService);
+        UserService userService = new UserServiceImpl(userRepository);
         AuthenticationService authenticationService = new AuthenticationServiceImpl(userService, tokenValidatorService);
         MessageService messageService = new MessageServiceImpl(messageRepository);
 
@@ -57,7 +60,23 @@ public class Application {
         Spark.get(Path.MESSAGES, messagesController.getMessages);
         // Health
         Spark.post(Path.HEALTH, HealthController.check);
-
+        // Errors
+        exception(UserNotFoundException.class, (e, req, res) -> {
+            res.body(e.getMessage());
+            res.status(404);
+        });
+        exception(MissingParametersException.class, (e, req, res) -> {
+            res.body(e.getMessage());
+            res.status(400);
+        });
+        exception(ContentTypeNotSupportedException.class, (e, req, res) -> {
+            res.body(e.getMessage());
+            res.status(409);
+        });
+        exception(Exception.class, (e, req, res) -> {
+            res.body("Internal server error");
+            res.status(500);
+        });
     }
 
 }
