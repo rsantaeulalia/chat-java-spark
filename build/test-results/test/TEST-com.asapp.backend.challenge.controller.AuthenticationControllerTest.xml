@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.asapp.backend.challenge.controller.AuthenticationControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-07-05T22:24:22" hostname="rsantaeulalia-mbp" time="1.539">
+  <properties/>
+  <testcase name="loginUserWithPost" classname="com.asapp.backend.challenge.controller.AuthenticationControllerTest" time="1.539"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
