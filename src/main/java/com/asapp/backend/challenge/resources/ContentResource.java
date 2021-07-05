@@ -1,22 +1,36 @@
 package com.asapp.backend.challenge.resources;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ContentResource {
     private String type;
     private String text;
     private String url;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private int width;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private int height;
     private String source;
 
     ContentResource() {
     }
 
-    public ContentResource(String type, String text, String url, int width, int height, String source) {
+    public ContentResource(String type, String text) {
         this.type = type;
         this.text = text;
+    }
+
+    public ContentResource(String type, String url, int width, int height) {
+        this.type = type;
         this.url = url;
         this.width = width;
         this.height = height;
+    }
+
+    public ContentResource(String type, String url, String source) {
+        this.type = type;
+        this.url = url;
         this.source = source;
     }
 

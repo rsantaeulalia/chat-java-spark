@@ -10,13 +10,13 @@ public class ContentAdapter {
     public static ContentResource toApi(Content content) {
         if (content instanceof Image) {
             Image image = (Image) content;
-            return new ContentResource(image.getType(), null, image.getUrl(), image.getWidth(), image.getHeight(), null);
+            return new ContentResource(image.getType(), image.getUrl(), image.getWidth(), image.getHeight());
         } else if (content instanceof Video) {
             Video video = (Video) content;
-            return new ContentResource(video.getType(), null, video.getUrl(), 0, 0, video.getSource().name());
+            return new ContentResource(video.getType(), video.getUrl(), video.getSource().name());
         } else {
             Text text = (Text) content;
-            return new ContentResource(text.getType(), text.getText(), null, 0, 0, null);
+            return new ContentResource(text.getType(), text.getText());
         }
     }
 }
