@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.asapp.backend.challenge.model.adapter.MessageAdapterTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-07-05T19:53:08" hostname="rsantaeulalia-mbp" time="0.003">
+  <properties/>
+  <testcase name="adaptFromApiToDomainModel" classname="com.asapp.backend.challenge.model.adapter.MessageAdapterTest" time="0.001"/>
+  <testcase name="adaptFromDomainToApiModel" classname="com.asapp.backend.challenge.model.adapter.MessageAdapterTest" time="0.001"/>
+  <testcase name="adaptFromDomainToApiResponseModel" classname="com.asapp.backend.challenge.model.adapter.MessageAdapterTest" time="0.0"/>
+  <testcase name="adaptFromDomainToApiModelWithWrongType" classname="com.asapp.backend.challenge.model.adapter.MessageAdapterTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

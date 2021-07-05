@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.asapp.backend.challenge.repository.UserRepositoryTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-07-05T19:53:07" hostname="rsantaeulalia-mbp" time="0.047">
+  <properties/>
+  <testcase name="testSaveUser" classname="com.asapp.backend.challenge.repository.UserRepositoryTest" time="0.008"/>
+  <testcase name="testGetUserByUsername" classname="com.asapp.backend.challenge.repository.UserRepositoryTest" time="0.026"/>
+  <testcase name="testGetUserByWrongUsername" classname="com.asapp.backend.challenge.repository.UserRepositoryTest" time="0.012"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

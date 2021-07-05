@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.asapp.backend.challenge.repository.MessageRepositoryTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-07-05T19:53:06" hostname="rsantaeulalia-mbp" time="0.888">
+  <properties/>
+  <testcase name="testGetMessagesByQuery" classname="com.asapp.backend.challenge.repository.MessageRepositoryTest" time="0.863"/>
+  <testcase name="testGetMessagesByQueryLimits" classname="com.asapp.backend.challenge.repository.MessageRepositoryTest" time="0.018"/>
+  <testcase name="testSaveMessage" classname="com.asapp.backend.challenge.repository.MessageRepositoryTest" time="0.007"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
