@@ -1,17 +1,15 @@
 package com.asapp.backend.challenge.model.adapter;
 
-import com.asapp.backend.challenge.controller.model.UserRequest;
-import com.asapp.backend.challenge.model.User;
-import com.asapp.backend.challenge.resources.UserResource;
-
-import java.util.Date;
+import org.junit.Test;
 
 public class UserAdapterTest {
-    public static User toDomain(UserRequest userRequest) {
-        return new User(userRequest.getUsername(), userRequest.getPassword(), new Date());
+    @Test
+    public void adaptFromDomainToApiModel(){
+
     }
 
-    public static UserResource toApi(User user) {
-        return new UserResource(user.getId());
+    @Test
+    public void adaptFromApiToDomainModel(){
+
     }
 }

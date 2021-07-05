@@ -13,13 +13,13 @@ import java.util.Optional;
 
 public class UserRepositoryTest {
 
-    static Sql2o sql2o = new Sql2o("jdbc:sqlite:sample-test.db", null, null);
+    private static final Sql2o sql2o = new Sql2o("jdbc:sqlite:sample-test.db", null, null);
 
-    User userToSave;
-    User savedUser;
-    Optional<User> userFindByUsername;
-    String username;
-    UserRepository userRepository;
+    private User userToSave;
+    private User savedUser;
+    private Optional<User> userFindByUsername;
+    private String username;
+    private UserRepository userRepository;
 
     @Before
     public void setUp() {

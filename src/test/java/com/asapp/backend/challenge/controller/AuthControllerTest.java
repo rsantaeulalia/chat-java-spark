@@ -9,15 +9,5 @@ import spark.Response;
 import spark.Route;
 
 public class AuthControllerTest {
-    private AuthenticationService authenticationService;
-
-    public AuthControllerTest(final AuthenticationService authenticationService) {
-        this.authenticationService = authenticationService;
-    }
-
-    public Route login = (Request req, Response resp) -> {
-        UserRequest userRequest = JSONUtil.jsonToData(req.body(), UserRequest.class);
-        return JSONUtil.dataToJson(authenticationService.login(UserAdapterTest.toDomain(userRequest)));
-    };
 
 }

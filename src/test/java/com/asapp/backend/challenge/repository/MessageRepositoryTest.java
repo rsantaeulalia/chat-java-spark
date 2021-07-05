@@ -14,14 +14,14 @@ import java.util.Collection;
 import java.util.Date;
 
 public class MessageRepositoryTest {
-    static Sql2o sql2o = new Sql2o("jdbc:sqlite:sample-test.db", null, null);
+    private static final Sql2o sql2o = new Sql2o("jdbc:sqlite:sample-test.db", null, null);
 
-    Message messageToSave;
-    Message savedMessage;
-    Collection<Message> foundMessages;
-    MessageRepository messageRepository;
+    private Message messageToSave;
+    private Message savedMessage;
+    private Collection<Message> foundMessages;
+    private MessageRepository messageRepository;
 
-    Long limit, startId, receiverId;
+    private Long limit, startId, receiverId;
 
     @Before
     public void setUp() {

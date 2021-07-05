@@ -11,16 +11,4 @@ import spark.Route;
 
 public class UsersControllerTest {
 
-    private UserService userService;
-
-    public UsersControllerTest(final UserService userService) {
-        this.userService = userService;
-    }
-
-    public Route createUser = (Request req, Response resp) -> {
-        UserRequest userRequest = JSONUtil.jsonToData(req.body(), UserRequest.class);
-        User user = userService.registerUser(UserAdapterTest.toDomain(userRequest));
-        resp.status(201);
-        return JSONUtil.dataToJson(UserAdapterTest.toApi(user));
-    };
 }
