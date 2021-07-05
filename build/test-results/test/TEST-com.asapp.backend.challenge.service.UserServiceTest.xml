@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.asapp.backend.challenge.service.UserServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-07-05T20:59:18" hostname="rsantaeulalia-mbp" time="0.12">
+  <properties/>
+  <testcase name="givenAUserWhenServiceSaveMethodIsCalledThenReturnUser" classname="com.asapp.backend.challenge.service.UserServiceTest" time="0.119"/>
+  <testcase name="givenWrongUsernameWhenGetByUsernameIsCalledThenReturnEmpty" classname="com.asapp.backend.challenge.service.UserServiceTest" time="0.0"/>
+  <testcase name="givenUsernameWhenGetByUsernameIsCalledThenReturnUser" classname="com.asapp.backend.challenge.service.UserServiceTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
