@@ -2,6 +2,7 @@ package com.asapp.backend.challenge.model.adapter;
 
 import com.asapp.backend.challenge.controller.model.ContentRequest;
 import com.asapp.backend.challenge.controller.model.MessageRequest;
+import com.asapp.backend.challenge.exceptions.ContentTypeNotSupportedException;
 import com.asapp.backend.challenge.model.Message;
 import com.asapp.backend.challenge.model.Text;
 import com.asapp.backend.challenge.model.Video;
@@ -99,5 +100,16 @@ public class MessageAdapterTest {
     private void thenMessageResponseResourceIsReturned() {
         Assert.assertNotNull(messageResponseResource);
         Assert.assertEquals(messageResponseResource.getId(), expectedMessageResponseResource.getId());
+    }
+
+    @Test(expected = ContentTypeNotSupportedException.class)
+    public void adaptFromDomainToApiModelWithWrongType() {
+        givenAWrongTypeContentMessage();
+        whenMessageAdapterToDomainIsCalled();
+    }
+
+    private void givenAWrongTypeContentMessage() {
+        messageRequest = new MessageRequest(1L, 2L, new ContentRequest("wrongtype", null, "https://videourl.com",
+                0, 0, "youtube"));
     }
 }
