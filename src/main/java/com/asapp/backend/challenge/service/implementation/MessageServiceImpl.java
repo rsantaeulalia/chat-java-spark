@@ -1,8 +1,8 @@
-package com.asapp.backend.challenge.service;
+package com.asapp.backend.challenge.service.implementation;
 
-import com.asapp.backend.challenge.controller.model.MessageRequest;
 import com.asapp.backend.challenge.model.Message;
 import com.asapp.backend.challenge.repository.MessageRepository;
+import com.asapp.backend.challenge.service.MessageService;
 
 import java.util.Collection;
 
@@ -15,8 +15,8 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public Message saveMessage(MessageRequest messageRequest) {
-        return messageRepository.addMessage(messageRequest);
+    public Message saveMessage(Message message) {
+        return messageRepository.addMessage(message);
     }
 
     @Override

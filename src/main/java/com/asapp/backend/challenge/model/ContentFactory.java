@@ -1,5 +1,6 @@
 package com.asapp.backend.challenge.model;
 
+import com.asapp.backend.challenge.exceptions.ContentTypeNotSupportedException;
 import com.asapp.backend.challenge.model.enums.SourceEnum;
 
 public class ContentFactory implements AbstractFactory<Content> {
@@ -18,6 +19,6 @@ public class ContentFactory implements AbstractFactory<Content> {
             return new Image(contentType, url, height, width);
         }
 
-        return null;
+        throw new ContentTypeNotSupportedException(String.format("Content type %s not supported", contentType));
     }
 }

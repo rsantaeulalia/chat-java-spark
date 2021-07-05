@@ -1,9 +1,11 @@
 package com.asapp.backend.challenge.controller;
 
+import static java.util.stream.Collectors.toList;
+
 import com.asapp.backend.challenge.controller.model.MessageRequest;
 import com.asapp.backend.challenge.exceptions.MissingParametersException;
 import com.asapp.backend.challenge.model.Message;
-import com.asapp.backend.challenge.resources.MessageResponseResource;
+import com.asapp.backend.challenge.model.adapter.MessageAdapter;
 import com.asapp.backend.challenge.service.MessageService;
 import com.asapp.backend.challenge.utils.JSONUtil;
 import spark.Request;
@@ -11,7 +13,6 @@ import spark.Response;
 import spark.Route;
 
 import java.util.Collection;
-import java.util.Collections;
 
 public class MessagesController {
 
@@ -26,10 +27,11 @@ public class MessagesController {
         this.messageService = messageService;
     }
 
-    public Route sendMessage = (Request req, Response rep) -> {
+    public Route sendMessage = (Request req, Response resp) -> {
         MessageRequest messageRequest = JSONUtil.jsonToData(req.body(), MessageRequest.class);
-        Message message = messageService.saveMessage(messageRequest);
-        return JSONUtil.dataToJson(new MessageResponseResource(message.getId(), message.getCreationDate()));
+        Message message = messageService.saveMessage(MessageAdapter.toDomain(messageRequest));
+        resp.status(201);
+        return JSONUtil.dataToJson(MessageAdapter.toMessageResponse(message));
     };
 
     public Route getMessages = (Request req, Response rep) -> {
@@ -46,7 +48,7 @@ public class MessagesController {
 
         Collection<Message> messages = messageService.getMessagesByReceiverId(receiverId, startId, limit);
 
-        return JSONUtil.dataToJson(Collections.singletonList(messages));
+        return JSONUtil.dataToJson(messages.stream().map(MessageAdapter::toApi).collect(toList()));
     };
 
 

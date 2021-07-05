@@ -1,10 +1,10 @@
-package com.asapp.backend.challenge.repository;
+package com.asapp.backend.challenge.repository.SqLiteImplementation;
 
 import com.asapp.backend.challenge.model.User;
+import com.asapp.backend.challenge.repository.UserRepository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
-import java.util.Date;
 import java.util.Optional;
 
 public class UserSqlLiteRepository implements UserRepository {
@@ -15,9 +15,8 @@ public class UserSqlLiteRepository implements UserRepository {
         createTable();
     }
 
-    public User addUser(String username, String password) {
+    public User addUser(User user) {
         try (Connection conn = sql2o.open()) {
-            User user = new User(username, password, new Date());
             Long id = conn.createQuery("insert into users( username, password, creation_date) " +
                     "VALUES (:username, :password, :creation_date)")
                     .addParameter("username", user.getUsername())

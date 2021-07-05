@@ -16,6 +16,14 @@ public class Message {
         this.creationDate = creationDate;
     }
 
+    public Message(Long id, Long senderId, Long receiverId, Content content, Date creationDate) {
+        this.id = id;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+        this.content = content;
+        this.creationDate = creationDate;
+    }
+
     public Long getId() {
         return id;
     }

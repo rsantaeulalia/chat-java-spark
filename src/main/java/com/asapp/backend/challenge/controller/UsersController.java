@@ -2,7 +2,7 @@ package com.asapp.backend.challenge.controller;
 
 import com.asapp.backend.challenge.controller.model.UserRequest;
 import com.asapp.backend.challenge.model.User;
-import com.asapp.backend.challenge.resources.UserResource;
+import com.asapp.backend.challenge.model.adapter.UserAdapter;
 import com.asapp.backend.challenge.service.UserService;
 import com.asapp.backend.challenge.utils.JSONUtil;
 import spark.Request;
@@ -19,7 +19,8 @@ public class UsersController {
 
     public Route createUser = (Request req, Response resp) -> {
         UserRequest userRequest = JSONUtil.jsonToData(req.body(), UserRequest.class);
-        User user = userService.registerUser(userRequest);
-        return JSONUtil.dataToJson(new UserResource(user.getId()));
+        User user = userService.registerUser(UserAdapter.toDomain(userRequest));
+        resp.status(201);
+        return JSONUtil.dataToJson(UserAdapter.toApi(user));
     };
 }

@@ -1,20 +1,18 @@
-package com.asapp.backend.challenge.repository;
+package com.asapp.backend.challenge.repository.SqLiteImplementation;
 
-import com.asapp.backend.challenge.controller.model.MessageRequest;
-import com.asapp.backend.challenge.exceptions.ContentTypeNotSupportedException;
 import com.asapp.backend.challenge.model.Content;
 import com.asapp.backend.challenge.model.ContentFactory;
 import com.asapp.backend.challenge.model.Image;
 import com.asapp.backend.challenge.model.Message;
 import com.asapp.backend.challenge.model.Text;
 import com.asapp.backend.challenge.model.Video;
+import com.asapp.backend.challenge.repository.MessageRepository;
 import org.sql2o.Connection;
 import org.sql2o.Query;
 import org.sql2o.ResultSetHandler;
 import org.sql2o.Sql2o;
 
 import java.util.Collection;
-import java.util.Date;
 
 public class MessageSqlLiteRepository implements MessageRepository {
     private final Sql2o sql2o;
@@ -25,13 +23,8 @@ public class MessageSqlLiteRepository implements MessageRepository {
     }
 
     @Override
-    public Message addMessage(MessageRequest messageRequest) {
+    public Message addMessage(Message message) {
         try (Connection conn = sql2o.open()) {
-            Message message = new Message(messageRequest.getSender(), messageRequest.getRecipient(),
-                    new ContentFactory().create(messageRequest.getContent().getType(), messageRequest.getContent().getUrl(),
-                            messageRequest.getContent().getHeight(), messageRequest.getContent().getWidth(), messageRequest.getContent().getText(),
-                            messageRequest.getContent().getSource()),
-                    new Date());
             Query query = conn.createQuery("insert into messages" +
                     "( sender_id, receiver_id, contentType, content, url, creation_date, source, width, height) " +
                     "VALUES (:sender_id,:receiver_id,:contentType,:content, :url, :creation_date, :source, :width, :height )")
@@ -97,18 +90,17 @@ public class MessageSqlLiteRepository implements MessageRepository {
             query.addParameter("url", video.getUrl())
                     .addParameter("source", video.getSource())
                     .addParameter("contentType", video.getType());
-        } else if (type instanceof Text) {
+        } else {
             Text text = (Text) type;
             query.addParameter("content", text.getText())
                     .addParameter("contentType", text.getType());
-        } else {
-            throw new ContentTypeNotSupportedException(type + "not supported");
         }
 
         return query;
     }
 
-    ResultSetHandler<Message> getMessagesHandler = rs -> new Message(rs.getLong("sender_id"),
+    ResultSetHandler<Message> getMessagesHandler = rs -> new Message(rs.getLong("id"),
+            rs.getLong("sender_id"),
             rs.getLong("receiver_id"),
             new ContentFactory().create(rs.getString("contentType"),
                     rs.getString("url"),

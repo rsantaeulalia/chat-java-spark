@@ -1,13 +1,14 @@
-package com.asapp.backend.challenge.service;
+package com.asapp.backend.challenge.service.implementation;
 
 import com.asapp.backend.challenge.model.User;
+import com.asapp.backend.challenge.service.TokenValidatorService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.DefaultClaims;
 
 import java.util.Date;
 
-public class TokenValidatorServiceImpl implements TokenValidatorService{
+public class TokenValidatorServiceImpl implements TokenValidatorService {
 
     private static final long EXPIRATION_TIME = 10 * 60 * 1000L;
 
