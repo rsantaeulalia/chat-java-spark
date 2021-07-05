@@ -2,17 +2,27 @@ package com.asapp.backend.challenge.repository;
 
 import com.asapp.backend.challenge.model.User;
 import com.asapp.backend.challenge.repository.SqLiteImplementation.UserSqlLiteRepository;
+import org.junit.AfterClass;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 import java.util.Date;
 
 public class UserRepositoryTest {
 
+    static Sql2o sql2o = new Sql2o("jdbc:sqlite:sample-test.db", null, null);
     User userToSave;
     User savedUser;
-    UserRepository userRepository = new UserSqlLiteRepository(new Sql2o("jdbc:sqlite:sample-test.db", null, null));
+    UserRepository userRepository = new UserSqlLiteRepository(sql2o);
+
+    @Before
+    public void setUp() {
+        userToSave = null;
+        savedUser = null;
+    }
 
     @Test
     public void testSaveUser() {
@@ -40,5 +50,12 @@ public class UserRepositoryTest {
     @Test
     public void testGetUserByUsername() {
 
+    }
+
+    @AfterClass
+    public static void clear() {
+        try (Connection conn = sql2o.open()) {
+            conn.createQuery("DROP TABLE IF EXISTS users").executeUpdate();
+        }
     }
 }
