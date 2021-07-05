@@ -16,7 +16,7 @@ import java.util.Collection;
 
 public class MessagesController {
 
-    private static final Long DEFAULT_LIMIT = 10L;
+    private static final Long DEFAULT_LIMIT = 100L;
     public static final String START_PROPERTY = "start";
     public static final String LIMIT_PROPERTY = "limit";
     public static final String RECIPIENT_PROPERTY = "recipient";

@@ -14,10 +14,11 @@ public class User {
         this.creationDate = creationDate;
     }
 
-    public User(Long id, String username, Date creationDate) {
+    public User(Long id, String username, String password, Date creationDate) {
         this.id = id;
         this.username = username;
         this.creationDate = creationDate;
+        this.password = password;
     }
 
     public void setUsername(String username) {

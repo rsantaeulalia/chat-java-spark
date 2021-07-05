@@ -30,7 +30,9 @@ public class MessageAdapterTest {
     public void setUp() {
         messageRequest = null;
         messageResource = null;
+        expectedMessageResource = null;
         message = null;
+        expectedMessage = null;
         messageResponseResource = null;
         expectedMessageResponseResource = null;
     }

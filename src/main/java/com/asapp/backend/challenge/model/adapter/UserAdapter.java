@@ -11,7 +11,7 @@ public class UserAdapter {
         return new User(userRequest.getUsername(), userRequest.getPassword(), new Date());
     }
 
-    public static UserResource toApi(com.asapp.backend.challenge.model.User user) {
+    public static UserResource toApi(User user) {
         return new UserResource(user.getId());
     }
 }
