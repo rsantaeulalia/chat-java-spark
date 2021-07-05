@@ -2,7 +2,6 @@ package com.asapp.backend.challenge.repository;
 
 import com.asapp.backend.challenge.model.User;
 import com.asapp.backend.challenge.repository.SqLiteImplementation.UserSqlLiteRepository;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,15 +14,17 @@ import java.util.Optional;
 public class UserRepositoryTest {
 
     static Sql2o sql2o = new Sql2o("jdbc:sqlite:sample-test.db", null, null);
+
     User userToSave;
     User savedUser;
     Optional<User> userFindByUsername;
     String username;
-    UserRepository userRepository = new UserSqlLiteRepository(sql2o);
+    UserRepository userRepository;
 
     @Before
     public void setUp() {
-        deleteUsers();
+        dropUserTable();
+        userRepository = new UserSqlLiteRepository(sql2o);
         userToSave = null;
         savedUser = null;
     }
@@ -90,17 +91,6 @@ public class UserRepositoryTest {
 
     private void thenTheUserIsNotFound() {
         Assert.assertTrue(userFindByUsername.isEmpty());
-    }
-
-    @AfterClass
-    public static void clear() {
-        dropUserTable();
-    }
-
-    private void deleteUsers() {
-        try (Connection conn = sql2o.open()) {
-            conn.createQuery("DELETE FROM USERS").executeUpdate();
-        }
     }
 
     private static void dropUserTable() {

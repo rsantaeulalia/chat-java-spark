@@ -28,14 +28,17 @@ import spark.Spark;
 
 public class Application {
 
+    public static final Sql2o DATASOURCE = new Sql2o("jdbc:sqlite:sample.db", null, null);
+    public static final String SECRET_JWT_KEY = "secret_jwt_key";
+
     public static void main(String[] args) {
 
         //Repositories
-        UserRepository userRepository = new UserSqlLiteRepository(new Sql2o("jdbc:sqlite:sample.db", null, null));
-        MessageRepository messageRepository = new MessageSqlLiteRepository(new Sql2o("jdbc:sqlite:sample.db", null, null));
+        UserRepository userRepository = new UserSqlLiteRepository(DATASOURCE);
+        MessageRepository messageRepository = new MessageSqlLiteRepository(DATASOURCE);
 
         //Services
-        TokenValidatorService tokenValidatorService = new TokenValidatorServiceImpl("secret_jwt_key");
+        TokenValidatorService tokenValidatorService = new TokenValidatorServiceImpl(SECRET_JWT_KEY);
         UserService userService = new UserServiceImpl(userRepository);
         AuthenticationService authenticationService = new AuthenticationServiceImpl(userService, tokenValidatorService);
         MessageService messageService = new MessageServiceImpl(messageRepository);
