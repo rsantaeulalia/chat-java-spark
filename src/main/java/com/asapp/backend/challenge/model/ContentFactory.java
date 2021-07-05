@@ -12,11 +12,11 @@ public class ContentFactory implements AbstractFactory<Content> {
     @Override
     public Content create(String contentType, String url, int height, int width, String text, String source) {
         if (VIDEO.equalsIgnoreCase(contentType)) {
-            return new Video(contentType, url, SourceEnum.valueOf(source.toUpperCase()));
+            return new Video(contentType, url, SourceEnum.valueOf(source.toUpperCase()), null);
         } else if (TEXT.equalsIgnoreCase(contentType)) {
             return new Text(contentType, text);
         } else if (IMAGE.equalsIgnoreCase(contentType)) {
-            return new Image(contentType, url, height, width);
+            return new Image(contentType, url, height, width, null);
         }
 
         throw new ContentTypeNotSupportedException(String.format("Content type %s not supported", contentType));

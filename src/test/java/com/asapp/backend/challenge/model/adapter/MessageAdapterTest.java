@@ -47,7 +47,7 @@ public class MessageAdapterTest {
     private void givenAMessageRequest() {
         messageRequest = new MessageRequest(1L, 2L, new ContentRequest("video", null, "https://videourl.com",
                 0, 0, "youtube"));
-        expectedMessage = new Message(2L, 1L, new Video("video", "https://videourl.com", SourceEnum.YOUTUBE), new Date());
+        expectedMessage = new Message(2L, 1L, new Video("video", "https://videourl.com", SourceEnum.YOUTUBE, null), new Date());
     }
 
     private void whenMessageAdapterToDomainIsCalled() {

@@ -5,12 +5,14 @@ public class Image implements Content {
     private String url;
     private int height;
     private int width;
+    private byte[] metadata;
 
-    public Image(String type, String url, int height, int width) {
+    public Image(String type, String url, int height, int width, byte[] metadata) {
         this.type = type;
         this.url = url;
         this.height = height;
         this.width = width;
+        this.metadata = metadata;
     }
 
     public String getUrl() {
@@ -43,5 +45,13 @@ public class Image implements Content {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public byte[] getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(byte[] metadata) {
+        this.metadata = metadata;
     }
 }

@@ -10,7 +10,6 @@ import com.asapp.backend.challenge.model.Video;
 import com.asapp.backend.challenge.model.enums.SourceEnum;
 import com.asapp.backend.challenge.repository.MessageRepository;
 import com.asapp.backend.challenge.service.implementation.MessageServiceImpl;
-import com.sun.tools.javac.util.List;
 import org.easymock.EasyMock;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,12 +17,13 @@ import org.junit.Test;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 public class MessageServiceTest {
 
-    private final Message message = new Message(2L, 1L, new Video("video", "https://videourl.com", SourceEnum.YOUTUBE), new Date());
-    private final Message expectedMessage = new Message(1L, 2L, 1L, new Video("video", "https://videourl.com", SourceEnum.YOUTUBE), new Date());
-    private final Message expectedMessage2 = new Message(2L, 2L, 1L, new Image("image", "https://videourl.com", 100, 200), new Date());
+    private final Message message = new Message(2L, 1L, new Video("video", "https://videourl.com", SourceEnum.YOUTUBE, null), new Date());
+    private final Message expectedMessage = new Message(1L, 2L, 1L, new Video("video", "https://videourl.com", SourceEnum.YOUTUBE, null), new Date());
+    private final Message expectedMessage2 = new Message(2L, 2L, 1L, new Image("image", "https://videourl.com", 100, 200, null), new Date());
 
     private MessageService messageService;
     private MessageRepository messageRepository;

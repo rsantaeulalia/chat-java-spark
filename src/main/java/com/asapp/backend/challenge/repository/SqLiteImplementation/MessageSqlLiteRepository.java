@@ -26,13 +26,13 @@ public class MessageSqlLiteRepository implements MessageRepository {
     public Message addMessage(Message message) {
         try (Connection conn = sql2o.open()) {
             Query query = conn.createQuery("insert into messages" +
-                    "( sender_id, receiver_id, contentType, content, url, creation_date, source, width, height) " +
-                    "VALUES (:sender_id,:receiver_id,:contentType,:content, :url, :creation_date, :source, :width, :height )")
+                    "( sender_id, receiver_id, contentType, content, url, creation_date, source, width, height, metadata) " +
+                    "VALUES (:sender_id,:receiver_id,:contentType,:content, :url, :creation_date, :source, :width, :height, :metadata )")
                     .addParameter("sender_id", message.getSenderId())
                     .addParameter("receiver_id", message.getReceiverId())
                     .addParameter("creation_date", message.getCreationDate());
 
-            query = setContent(query, message.getContent());
+            setContent(query, message.getContent());
 
             Long id = query.executeUpdate().getKey(Long.class);
 
@@ -69,6 +69,7 @@ public class MessageSqlLiteRepository implements MessageRepository {
                     "   source TEXT INTEGER NULL," +
                     "   width INTEGER NULL," +
                     "   height INTEGER NULL," +
+                    "   metadata BLOB null, " +
                     "   FOREIGN KEY (sender_id) REFERENCES users (id)," +
                     "   FOREIGN KEY (receiver_id) REFERENCES users (id) " +
                     ")"
@@ -84,12 +85,14 @@ public class MessageSqlLiteRepository implements MessageRepository {
             query.addParameter("url", image.getUrl())
                     .addParameter("width", image.getWidth())
                     .addParameter("height", image.getHeight())
-                    .addParameter("contentType", image.getType());
+                    .addParameter("contentType", image.getType())
+                    .addParameter("metadata", image.getMetadata());
         } else if (type instanceof Video) {
             Video video = (Video) type;
             query.addParameter("url", video.getUrl())
                     .addParameter("source", video.getSource())
-                    .addParameter("contentType", video.getType());
+                    .addParameter("contentType", video.getType())
+                    .addParameter("metadata", video.getMetadata());
         } else {
             Text text = (Text) type;
             query.addParameter("content", text.getText())

@@ -2,6 +2,7 @@ package com.asapp.backend.challenge.repository;
 
 import com.asapp.backend.challenge.model.User;
 import com.asapp.backend.challenge.repository.SqLiteImplementation.UserSqlLiteRepository;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -91,6 +92,11 @@ public class UserRepositoryTest {
 
     private void thenTheUserIsNotFound() {
         Assert.assertTrue(userFindByUsername.isEmpty());
+    }
+
+    @AfterClass
+    public static void clear() {
+        dropUserTable();
     }
 
     private static void dropUserTable() {

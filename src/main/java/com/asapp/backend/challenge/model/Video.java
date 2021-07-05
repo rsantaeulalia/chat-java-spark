@@ -6,11 +6,13 @@ public class Video implements Content {
     private String type;
     private String url;
     private SourceEnum source;
+    private byte[] metadata;
 
-    public Video(String type, String url, SourceEnum source) {
+    public Video(String type, String url, SourceEnum source, byte[] metadata) {
         this.type = type;
         this.url = url;
         this.source = source;
+        this.metadata = metadata;
     }
 
     public String getType() {
@@ -35,5 +37,13 @@ public class Video implements Content {
 
     public void setSource(SourceEnum source) {
         this.source = source;
+    }
+
+    public byte[] getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(byte[] metadata) {
+        this.metadata = metadata;
     }
 }

@@ -4,6 +4,7 @@ import com.asapp.backend.challenge.model.ContentFactory;
 import com.asapp.backend.challenge.model.Message;
 import com.asapp.backend.challenge.model.Video;
 import com.asapp.backend.challenge.repository.SqLiteImplementation.MessageSqlLiteRepository;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -124,6 +125,11 @@ public class MessageRepositoryTest {
         Assert.assertEquals(3, foundMessages.size());
         Assert.assertTrue(foundMessages.stream().allMatch(message1 -> message1.getId() >= startId));
         Assert.assertTrue(foundMessages.stream().allMatch(message1 -> message1.getReceiverId().equals(receiverId)));
+    }
+
+    @AfterClass
+    public static void clear() {
+        dropMessageTable();
     }
 
     private static void dropMessageTable() {
