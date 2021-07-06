@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.asapp.backend.challenge.service.MessageServiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-07-06T14:10:53" hostname="rsantaeulalia-mbp" time="0.026">
+<testsuite name="com.asapp.backend.challenge.service.MessageServiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-07-06T14:20:56" hostname="rsantaeulalia-mbp" time="0.023">
   <properties/>
-  <testcase name="givenQueryParamsWhenGetMessagesIsCalledThenReturnCollectionOfMessages" classname="com.asapp.backend.challenge.service.MessageServiceTest" time="0.024"/>
+  <testcase name="givenQueryParamsWhenGetMessagesIsCalledThenReturnCollectionOfMessages" classname="com.asapp.backend.challenge.service.MessageServiceTest" time="0.021"/>
   <testcase name="givenAMessageWhenServiceSaveMethodIsCalledThenReturnMessage" classname="com.asapp.backend.challenge.service.MessageServiceTest" time="0.001"/>
   <testcase name="givenAMessageWhenServiceSaveMethodIsCalledThenThrowException" classname="com.asapp.backend.challenge.service.MessageServiceTest" time="0.0"/>
   <testcase name="givenQueryParamsWithWrongIdUserWhenGetMessagesIsCalledThenThrowException" classname="com.asapp.backend.challenge.service.MessageServiceTest" time="0.001"/>

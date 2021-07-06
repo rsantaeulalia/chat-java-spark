@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.asapp.backend.challenge.controller.MessageControllerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-07-06T14:10:53" hostname="rsantaeulalia-mbp" time="0.139">
+<testsuite name="com.asapp.backend.challenge.controller.MessageControllerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-07-06T14:20:56" hostname="rsantaeulalia-mbp" time="0.129">
   <properties/>
-  <testcase name="getMessageWithParams" classname="com.asapp.backend.challenge.controller.MessageControllerTest" time="0.084"/>
-  <testcase name="createMessageWithPost" classname="com.asapp.backend.challenge.controller.MessageControllerTest" time="0.054"/>
+  <testcase name="getMessageWithParams" classname="com.asapp.backend.challenge.controller.MessageControllerTest" time="0.08"/>
+  <testcase name="createMessageWithPost" classname="com.asapp.backend.challenge.controller.MessageControllerTest" time="0.049"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

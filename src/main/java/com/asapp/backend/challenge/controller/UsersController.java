@@ -21,6 +21,7 @@ public class UsersController {
         UserRequest userRequest = JSONUtil.jsonToData(req.body(), UserRequest.class);
         User user = userService.registerUser(UserAdapter.toDomain(userRequest));
         resp.status(201);
+        resp.type("application/json");
         return JSONUtil.dataToJson(UserAdapter.toApi(user));
     };
 }

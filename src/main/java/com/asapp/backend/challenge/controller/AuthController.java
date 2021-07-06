@@ -17,6 +17,7 @@ public class AuthController {
 
     public Route login = (Request req, Response resp) -> {
         UserRequest userRequest = JSONUtil.jsonToData(req.body(), UserRequest.class);
+        resp.type("application/json");
         return JSONUtil.dataToJson(authenticationService.login(UserAdapter.toDomain(userRequest)));
     };
 

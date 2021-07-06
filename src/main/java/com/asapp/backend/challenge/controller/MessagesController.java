@@ -31,10 +31,11 @@ public class MessagesController {
         MessageRequest messageRequest = JSONUtil.jsonToData(req.body(), MessageRequest.class);
         Message message = messageService.saveMessage(MessageAdapter.toDomain(messageRequest));
         resp.status(201);
+        resp.type("application/json");
         return JSONUtil.dataToJson(MessageAdapter.toMessageResponse(message));
     };
 
-    public Route getMessages = (Request req, Response rep) -> {
+    public Route getMessages = (Request req, Response resp) -> {
         Long limit, receiverId, startId;
         try {
             limit = req.queryParams().contains(LIMIT_PROPERTY) ?
@@ -48,6 +49,7 @@ public class MessagesController {
 
         Collection<Message> messages = messageService.getMessagesByReceiverId(receiverId, startId, limit);
 
+        resp.type("application/json");
         return JSONUtil.dataToJson(messages.stream().map(MessageAdapter::toApi).collect(toList()));
     };
 

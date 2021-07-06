@@ -9,5 +9,8 @@ import spark.Route;
 
 public class HealthController {
 
-    public static Route check = (Request req, Response rep) -> JSONUtil.dataToJson(new HealthResource(HealthCheckTypeEnum.OK));
+    public static Route check = (Request req, Response resp) -> {
+        resp.type("application/json");
+        return JSONUtil.dataToJson(new HealthResource(HealthCheckTypeEnum.OK));
+    };
 }
