@@ -66,19 +66,23 @@ public class Application {
         Spark.post(Path.HEALTH, HealthController.check);
         // Errors
         exception(UserNotFoundException.class, (e, req, res) -> {
+            res.type("application/json");
             res.body(e.getMessage());
             res.status(404);
         });
         exception(MissingParametersException.class, (e, req, res) -> {
+            res.type("application/json");
             res.body(e.getMessage());
             res.status(400);
         });
         exception(ContentTypeNotSupportedException.class, (e, req, res) -> {
+            res.type("application/json");
             res.body(e.getMessage());
             res.status(409);
         });
         exception(Exception.class, (e, req, res) -> {
-            res.body("Internal server error");
+            res.type("application/json");
+            res.body("{\"message\":\"Internal server error\"}");
             res.status(500);
         });
     }
