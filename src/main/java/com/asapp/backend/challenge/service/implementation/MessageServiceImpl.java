@@ -21,15 +21,20 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Message saveMessage(Message message) {
+        validateExistenceOfUser(message.getReceiverId());
+        validateExistenceOfUser(message.getSenderId());
         return messageRepository.addMessage(message);
     }
 
     @Override
     public Collection<Message> getMessagesByReceiverId(Long receiverId, Long startId, Long limit) {
-        if (userService.getUserById(receiverId).isPresent()) {
-            return messageRepository.getMessages(receiverId, startId, limit);
-        }
+        validateExistenceOfUser(receiverId);
+        return messageRepository.getMessages(receiverId, startId, limit);
+    }
 
-        throw new UserNotFoundException(String.format("User id %s not found", receiverId));
+    private void validateExistenceOfUser(Long userId) {
+        if (userService.getUserById(userId).isEmpty()) {
+            throw new UserNotFoundException(String.format("User id %s not found", userId));
+        }
     }
 }

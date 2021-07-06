@@ -48,15 +48,28 @@ public class MessageServiceTest {
 
     @Test
     public void givenAMessageWhenServiceSaveMethodIsCalledThenReturnMessage() {
+        expect(userRepository.getById(message.getReceiverId())).andReturn(Optional.of(user));
+        expect(userRepository.getById(message.getSenderId())).andReturn(Optional.of(user));
         expect(messageRepository.addMessage(message)).andReturn(expectedMessage);
 
-        replay(messageRepository);
+        replay(messageRepository, userRepository);
 
         Message savedMessage = messageService.saveMessage(message);
 
         Assert.assertEquals(savedMessage.getId(), expectedMessage.getId());
 
-        verify(messageRepository);
+        verify(messageRepository, userRepository);
+    }
+
+    @Test(expected = UserNotFoundException.class)
+    public void givenAMessageWhenServiceSaveMethodIsCalledThenThrowException() {
+        expect(userRepository.getById(message.getReceiverId())).andReturn(Optional.empty());
+        expect(userRepository.getById(message.getSenderId())).andReturn(Optional.of(user));
+
+        replay(messageRepository, userRepository);
+
+        messageService.saveMessage(message);
+        verify(messageRepository, userRepository);
     }
 
     @Test
@@ -76,7 +89,6 @@ public class MessageServiceTest {
     @Test(expected = UserNotFoundException.class)
     public void givenQueryParamsWithWrongIdUserWhenGetMessagesIsCalledThenThrowException() {
         expect(userRepository.getById(anyLong())).andReturn(Optional.empty());
-        expect(messageRepository.getMessages(1L, 1L, 2L)).andReturn(List.of(expectedMessage, expectedMessage2));
 
         replay(messageRepository, userRepository);
 

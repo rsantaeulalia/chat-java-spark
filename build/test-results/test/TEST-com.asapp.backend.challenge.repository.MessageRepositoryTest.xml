@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.asapp.backend.challenge.repository.MessageRepositoryTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-07-05T23:11:17" hostname="rsantaeulalia-mbp" time="0.923">
+<testsuite name="com.asapp.backend.challenge.repository.MessageRepositoryTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-07-06T14:10:50" hostname="rsantaeulalia-mbp" time="0.772">
   <properties/>
-  <testcase name="testGetMessagesByQuery" classname="com.asapp.backend.challenge.repository.MessageRepositoryTest" time="0.9"/>
-  <testcase name="testGetMessagesByQueryLimits" classname="com.asapp.backend.challenge.repository.MessageRepositoryTest" time="0.017"/>
-  <testcase name="testSaveMessage" classname="com.asapp.backend.challenge.repository.MessageRepositoryTest" time="0.005"/>
+  <testcase name="testGetMessagesByQuery" classname="com.asapp.backend.challenge.repository.MessageRepositoryTest" time="0.743"/>
+  <testcase name="testGetMessagesByQueryLimits" classname="com.asapp.backend.challenge.repository.MessageRepositoryTest" time="0.019"/>
+  <testcase name="testSaveMessage" classname="com.asapp.backend.challenge.repository.MessageRepositoryTest" time="0.008"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
