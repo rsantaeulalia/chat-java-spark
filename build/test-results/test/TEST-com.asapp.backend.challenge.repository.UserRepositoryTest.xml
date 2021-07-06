@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.asapp.backend.challenge.repository.UserRepositoryTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-07-06T17:53:49" hostname="rsantaeulalia-mbp" time="0.062">
+<testsuite name="com.asapp.backend.challenge.repository.UserRepositoryTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-07-06T19:51:13" hostname="rsantaeulalia-mbp" time="0.057">
   <properties/>
-  <testcase name="testSaveUser" classname="com.asapp.backend.challenge.repository.UserRepositoryTest" time="0.007"/>
-  <testcase name="testGetUserByUsername" classname="com.asapp.backend.challenge.repository.UserRepositoryTest" time="0.03"/>
-  <testcase name="testGetUserById" classname="com.asapp.backend.challenge.repository.UserRepositoryTest" time="0.012"/>
+  <testcase name="testSaveUser" classname="com.asapp.backend.challenge.repository.UserRepositoryTest" time="0.006"/>
+  <testcase name="testGetUserByUsername" classname="com.asapp.backend.challenge.repository.UserRepositoryTest" time="0.026"/>
+  <testcase name="testGetUserById" classname="com.asapp.backend.challenge.repository.UserRepositoryTest" time="0.013"/>
   <testcase name="testGetUserByWrongUsername" classname="com.asapp.backend.challenge.repository.UserRepositoryTest" time="0.012"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

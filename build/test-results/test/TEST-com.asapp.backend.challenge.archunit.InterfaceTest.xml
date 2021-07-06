@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.asapp.backend.challenge.archunit.InterfaceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-07-06T19:51:16" hostname="rsantaeulalia-mbp" time="0.017">
+  <properties/>
+  <testcase name="interfacesMustNotBeInImplementationPackages" classname="com.asapp.backend.challenge.archunit.InterfaceTest" time="0.017"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

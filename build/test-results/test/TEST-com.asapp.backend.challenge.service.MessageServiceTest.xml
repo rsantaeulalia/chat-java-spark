@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.asapp.backend.challenge.service.MessageServiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-07-06T17:53:51" hostname="rsantaeulalia-mbp" time="0.025">
+<testsuite name="com.asapp.backend.challenge.service.MessageServiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-07-06T19:51:15" hostname="rsantaeulalia-mbp" time="0.021">
   <properties/>
-  <testcase name="givenQueryParamsWhenGetMessagesIsCalledThenReturnCollectionOfMessages" classname="com.asapp.backend.challenge.service.MessageServiceTest" time="0.024"/>
-  <testcase name="givenAMessageWhenServiceSaveMethodIsCalledThenReturnMessage" classname="com.asapp.backend.challenge.service.MessageServiceTest" time="0.0"/>
-  <testcase name="givenAMessageWhenServiceSaveMethodIsCalledThenThrowException" classname="com.asapp.backend.challenge.service.MessageServiceTest" time="0.001"/>
-  <testcase name="givenQueryParamsWithWrongIdUserWhenGetMessagesIsCalledThenThrowException" classname="com.asapp.backend.challenge.service.MessageServiceTest" time="0.0"/>
+  <testcase name="givenQueryParamsWhenGetMessagesIsCalledThenReturnCollectionOfMessages" classname="com.asapp.backend.challenge.service.MessageServiceTest" time="0.019"/>
+  <testcase name="givenAMessageWhenServiceSaveMethodIsCalledThenReturnMessage" classname="com.asapp.backend.challenge.service.MessageServiceTest" time="0.001"/>
+  <testcase name="givenAMessageWhenServiceSaveMethodIsCalledThenThrowException" classname="com.asapp.backend.challenge.service.MessageServiceTest" time="0.0"/>
+  <testcase name="givenQueryParamsWithWrongIdUserWhenGetMessagesIsCalledThenThrowException" classname="com.asapp.backend.challenge.service.MessageServiceTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
