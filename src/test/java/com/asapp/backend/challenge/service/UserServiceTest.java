@@ -4,6 +4,7 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
 
+import com.asapp.backend.challenge.exceptions.UsernameAlreadyExistsException;
 import com.asapp.backend.challenge.model.User;
 import com.asapp.backend.challenge.repository.UserRepository;
 import com.asapp.backend.challenge.service.implementation.UserServiceImpl;
@@ -30,6 +31,7 @@ public class UserServiceTest {
 
     @Test
     public void givenAUserWhenServiceSaveMethodIsCalledThenReturnUser() {
+        expect(userRepository.getByUsername(user.getUsername())).andReturn(Optional.empty());
         expect(userRepository.addUser(user)).andReturn(expectedUser);
 
         replay(userRepository);
@@ -37,6 +39,17 @@ public class UserServiceTest {
         User savedUser = userService.registerUser(user);
 
         Assert.assertEquals(savedUser.getId(), expectedUser.getId());
+
+        verify(userRepository);
+    }
+
+    @Test(expected = UsernameAlreadyExistsException.class)
+    public void givenAUserWithExistingUsernameWhenServiceSaveMethodIsCalledThenThrowException() {
+        expect(userRepository.getByUsername(user.getUsername())).andReturn(Optional.of(user));
+
+        replay(userRepository);
+
+        userService.registerUser(user);
 
         verify(userRepository);
     }

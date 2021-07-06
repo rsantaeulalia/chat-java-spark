@@ -6,9 +6,11 @@ import com.asapp.backend.challenge.controller.AuthController;
 import com.asapp.backend.challenge.controller.HealthController;
 import com.asapp.backend.challenge.controller.MessagesController;
 import com.asapp.backend.challenge.controller.UsersController;
+import com.asapp.backend.challenge.controller.model.ErrorResponse;
 import com.asapp.backend.challenge.exceptions.ContentTypeNotSupportedException;
 import com.asapp.backend.challenge.exceptions.MissingParametersException;
 import com.asapp.backend.challenge.exceptions.UserNotFoundException;
+import com.asapp.backend.challenge.exceptions.UsernameAlreadyExistsException;
 import com.asapp.backend.challenge.filter.TokenValidatorFilter;
 import com.asapp.backend.challenge.repository.MessageRepository;
 import com.asapp.backend.challenge.repository.SqLiteImplementation.MessageSqlLiteRepository;
@@ -22,6 +24,7 @@ import com.asapp.backend.challenge.service.implementation.AuthenticationServiceI
 import com.asapp.backend.challenge.service.implementation.MessageServiceImpl;
 import com.asapp.backend.challenge.service.implementation.TokenValidatorServiceImpl;
 import com.asapp.backend.challenge.service.implementation.UserServiceImpl;
+import com.asapp.backend.challenge.utils.JSONUtil;
 import com.asapp.backend.challenge.utils.Path;
 import org.sql2o.Sql2o;
 import spark.Spark;
@@ -67,22 +70,27 @@ public class Application {
         // Errors
         exception(UserNotFoundException.class, (e, req, res) -> {
             res.type("application/json");
-            res.body(e.getMessage());
+            res.body(JSONUtil.dataToJson(new ErrorResponse("User.error", e.getMessage())));
             res.status(404);
         });
         exception(MissingParametersException.class, (e, req, res) -> {
             res.type("application/json");
-            res.body(e.getMessage());
+            res.body(JSONUtil.dataToJson(new ErrorResponse("MissingParameter.error", e.getMessage())));
             res.status(400);
         });
         exception(ContentTypeNotSupportedException.class, (e, req, res) -> {
             res.type("application/json");
-            res.body(e.getMessage());
+            res.body(JSONUtil.dataToJson(new ErrorResponse("ContentType.error", e.getMessage())));
+            res.status(409);
+        });
+        exception(UsernameAlreadyExistsException.class, (e, req, res) -> {
+            res.type("application/json");
+            res.body(JSONUtil.dataToJson(new ErrorResponse("User.error", e.getMessage())));
             res.status(409);
         });
         exception(Exception.class, (e, req, res) -> {
             res.type("application/json");
-            res.body("{\"message\":\"Internal server error\"}");
+            res.body(JSONUtil.dataToJson(new ErrorResponse("Internal server error")));
             res.status(500);
         });
     }
